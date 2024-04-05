@@ -1,3 +1,4 @@
+name: quick
 services:
 
   salt-master:
@@ -6,61 +7,74 @@ services:
     build:
       context: ./build/salt-master
       args:
-        salt_version: 3006.5
+        salt_version: 3006.7
     command: "-l debug"
     volumes:
       - ./data/master.d:/etc/salt/master.d
       - ./data/srv-salt:/srv/salt
       - ./data/srv-pillar:/srv/pillar
+    networks:
+      - saltdocker
 
   salt-minion-ubuntu:
     platform: "linux/amd64"
     build:
       context: ./build/salt-minion-ubuntu
       args:
-        salt_version: 3006.5
+        salt_version: 3006.7
     command: "-l debug"
     deploy:
       mode: replicated
       replicas: 2
     volumes:
       - ./data/minion.d:/etc/salt/minion.d
+    networks:
+      - saltdocker
   
   salt-minion-centos:
     platform: "linux/amd64"
     build:
       context: ./build/salt-minion-centos
       args:
-        salt_version: 3006.5
+        salt_version: 3006.7
     command: "-l debug"
     deploy:
       mode: replicated
       replicas: 2
     volumes:
       - ./data/minion.d:/etc/salt/minion.d
+    networks:
+      - saltdocker
   
   salt-minion-debian:
     platform: "linux/amd64"
     build:
       context: ./build/salt-minion-debian
       args:
-        salt_version: 3006.5
+        salt_version: 3006.7
     command: "-l debug"
     deploy:
       mode: replicated
       replicas: 2
     volumes:
       - ./data/minion.d:/etc/salt/minion.d
+    networks:
+      - saltdocker
   
   salt-minion-fedora:
     platform: "linux/amd64"
     build:
       context: ./build/salt-minion-fedora
       args:
-        salt_version: 3006.5
+        salt_version: 3006.7
     command: "-l debug"
     deploy:
       mode: replicated
       replicas: 2
     volumes:
       - ./data/minion.d:/etc/salt/minion.d
+    networks:
+      - saltdocker
+
+networks:
+  saltdocker:
