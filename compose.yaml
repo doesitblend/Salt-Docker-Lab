@@ -67,7 +67,7 @@ services:
       context: ./build/salt-minion-fedora
       args:
         salt_version: 3006.7
-    command: "-l debug"
+    #command: "-l debug"
     deploy:
       mode: replicated
       replicas: 2
