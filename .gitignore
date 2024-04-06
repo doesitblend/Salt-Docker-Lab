@@ -1,3 +1,5 @@
+data/srv-salt/*
+data/srv-pillar/*
 *.swp
 *.rpm
 *.tar.gz
