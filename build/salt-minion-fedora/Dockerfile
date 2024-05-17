@@ -1,6 +1,7 @@
-FROM fedora:38
+FROM fedora:39
 ARG salt_version
 RUN dnf update -y 
+RUN dnf install -y procps-ng
 RUN dnf install -y wget curl supervisor \
     && wget -O /install_salt.sh https://bootstrap.saltproject.io/ \
     && chmod +x /install_salt.sh \

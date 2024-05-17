@@ -7,12 +7,13 @@ services:
     build:
       context: ./build/salt-master
       args:
-        salt_version: 3006.7
+        salt_version: 3006.8
     command: "-l debug"
     volumes:
       - ./data/master.d:/etc/salt/master.d
       - ./data/srv-salt:/srv/salt
       - ./data/srv-pillar:/srv/pillar
+      - ./data/minion.d:/etc/salt/minion.d
     networks:
       - saltdocker
 
@@ -21,7 +22,7 @@ services:
     build:
       context: ./build/salt-minion-ubuntu
       args:
-        salt_version: 3006.7
+        salt_version: 3006.8
     command: "-l debug"
     deploy:
       mode: replicated
@@ -36,7 +37,7 @@ services:
     build:
       context: ./build/salt-minion-centos
       args:
-        salt_version: 3006.7
+        salt_version: 3006.8
     command: "-l debug"
     deploy:
       mode: replicated
@@ -51,7 +52,7 @@ services:
     build:
       context: ./build/salt-minion-debian
       args:
-        salt_version: 3006.7
+        salt_version: 3006.8
     command: "-l debug"
     deploy:
       mode: replicated
@@ -66,7 +67,7 @@ services:
     build:
       context: ./build/salt-minion-fedora
       args:
-        salt_version: 3006.7
+        salt_version: 3006.8
     #command: "-l debug"
     deploy:
       mode: replicated
