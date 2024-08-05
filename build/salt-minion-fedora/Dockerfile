@@ -1,5 +1,6 @@
 FROM fedora:39
 ARG salt_version
+COPY yum.conf /etc/yum.conf
 RUN dnf update -y 
 RUN dnf install -y procps-ng
 RUN dnf install -y wget curl supervisor \

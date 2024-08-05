@@ -1,9 +1,13 @@
 FROM quay.io/centos/centos:stream9
 ARG salt_version
-RUN rpm --import https://repo.saltproject.io/salt/py3/redhat/9/x86_64/SALT-PROJECT-GPG-PUBKEY-2023.pub
-RUN curl -fsSL https://repo.saltproject.io/salt/py3/redhat/9/x86_64/minor/$salt_version.repo | tee /etc/yum.repos.d/salt.repo
-RUN yum update -y
-RUN yum install -y salt-minion
+COPY yum.conf /etc/yum.conf
+RUN dnf install -y epel-release
+RUN dnf upgrade -y \
+    && dnf install --allowerasing -y curl wget supervisor vim-enhanced procps-ng
+RUN wget --no-check-certificate -O /install_salt.sh https://bootstrap.saltproject.io/ \
+    && chmod +x /install_salt.sh \
+    && /install_salt.sh -X stable $salt_version \
+    && rm -fv /install_salt.sh
 ENTRYPOINT [ "/usr/bin/salt-minion" ]
 CMD [ "-l", "info" ]
 

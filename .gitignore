@@ -6,4 +6,4 @@ data/srv-pillar/*
 *_license
 *.tar
 *.sql
-
+.DS_Store
